@@ -4,7 +4,7 @@ services:
   # Service: web
   web:
     build: .
-    image: pitou500/module_10_project
+    image: pitou500/module_11_project
     container_name: fastapi_calculator
     ports:
       - "8000:8000"
