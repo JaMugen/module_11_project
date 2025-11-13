@@ -54,6 +54,19 @@ def test_calculation_create_invalid_inputs():
     # Ensure that our custom error message is present (case-insensitive)
     assert "input should be a valid list" in error_message.lower(), error_message
 
+def test_calculation_create_division_by_zero():
+    """Test CalculationCreate fails if division by zero is attempted."""
+    data = {
+        "type": "division",
+        "inputs": [100.0, 0.0],  # Division by zero
+        "user_id": uuid4()
+    }
+    with pytest.raises(ValidationError) as exc_info:
+        CalculationCreate(**data)
+    error_message = str(exc_info.value)
+    # Check that the error message indicates division by zero.
+    assert "cannot divide by zero" in error_message.lower()
+
 def test_calculation_create_unsupported_type():
     """Test CalculationCreate fails if an unsupported calculation type is provided."""
     data = {
